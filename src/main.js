@@ -1,9 +1,25 @@
-/**
- * @typedef {Object} Module
- * @property {function(number,number):number|function(string,string):string} add
- */
+const kvp = require('./keyValuePair');
+const loopToObject = require('./loopToObject');
 
-/** @type {Module} */
+const hasAllNumericValues = keyArray => keyArray.every(isFinite)
+const hasAllStringValues = array => array.every(value => typeof value === `string`);
+const getStringFromArray = array => array.join(``);
+
 module.exports = {
-  add: (arg0, arg1) => arg0 + arg1
+  keyValuePair: kvp,
+  loop: (collection, operation) => {
+    const objectResult = loopToObject(collection, operation);
+    if (objectResult == null) return;
+    const resultKeys = Object.keys(objectResult);
+
+    if (hasAllNumericValues(resultKeys)) {
+      const arrayResult = Object.values(objectResult);
+      if (typeof collection === `string` && hasAllStringValues(arrayResult))
+        return getStringFromArray(arrayResult);
+
+      return arrayResult;
+    }
+
+    return objectResult;
+  }
 }
