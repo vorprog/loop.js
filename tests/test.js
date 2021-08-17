@@ -48,7 +48,7 @@ const expectedrandomWordValues = { make: `foo`, model: `bar`, year: `blee`, stoc
 const randomWordValues = loop(car1, (key, value, completedIterations) => new kvp(key, words[completedIterations]));
 checkForDiscrepancies(expectedrandomWordValues, randomWordValues);
 
-const expectedChangedCarValues = [`Ford`,  `1966`, 7, false];
+const expectedChangedCarValues = [`Ford`, `Mustang`, `1966`, 7, false];
 const changedCarValues = loop(car1, key => car2[key]);
 checkForDiscrepancies(expectedChangedCarValues, changedCarValues);
 
